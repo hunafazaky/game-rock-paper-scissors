@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Game - Rock Paper Scissor</title>
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+			integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
+			crossorigin="anonymous"
+		/>
+		<!-- <link rel="stylesheet" href="style.css" /> -->
+		<link rel="stylesheet" href="css/breakpoints.css" />
+	</head>
+	<body class="container bg-dark text-light">
+		<nav class="navbar navbar-expand-lg navbar-dark">
+			<div class="container">
+				<a class="navbar-brand" href="#">Rock Paper Scissor</a>
+				<button
+					class="navbar-toggler"
+					type="button"
+					data-bs-toggle="collapse"
+					data-bs-target="#navbarScroll"
+					aria-controls="navbarScroll"
+					aria-expanded="false"
+					aria-label="Toggle navigation"
+				>
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarScroll">
+					<ul
+						class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll"
+						style="--bs-scroll-height: 100px"
+					>
+						<li class="nav-item">
+							<a class="nav-link" href="#">New Game</a>
+						</li>
+						<li class="nav-item dropdown">
+							<a
+								class="nav-link dropdown-toggle"
+								href="#"
+								role="button"
+								data-bs-toggle="dropdown"
+								aria-expanded="false"
+							>
+								Difficulty
+							</a>
+							<ul class="dropdown-menu bg-dark">
+								<li><a class="dropdown-item text-danger" href="#">Enemy with Precognition</a></li>
+								<li><a class="dropdown-item text-warning" href="#">Enemy with High Luck</a></li>
+								<li><a class="dropdown-item text-secondary" href="#">Normal Enemy</a></li>
+								<li><a class="dropdown-item text-primary" href="#">Enemy with Poor Luck</a></li>
+							</ul>
+						</li>
+						<li class="nav-item dropdown">
+							<a
+								class="nav-link dropdown-toggle"
+								href="#"
+								role="button"
+								data-bs-toggle="dropdown"
+								aria-expanded="false"
+							>
+								Languages
+							</a>
+							<ul class="dropdown-menu bg-dark">
+								<li><a class="dropdown-item text-secondary" href="#">Indonesia</a></li>
+								<li><a class="dropdown-item text-secondary" href="#">English</a></li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+		<div class="row">
+			<section class="col-md-8 my-2">
+				<div style="height: 50%" class="card text-bg-danger mb-2">
+					<div class="card-header fw-bold">Computer Deck</div>
+					<div class="card-body mx-auto">
+						<img
+							class="img-sizing thumbnail p-2 rounded-circle paper"
+							alt="paper"
+							src="img/paper.jpg"
+						/>
+						<img
+							class="img-sizing thumbnail p-2 rounded-circle scissor"
+							alt="scissor"
+							src="img/scissor.jpg"
+						/>
+						<img
+							class="img-sizing thumbnail p-2 rounded-circle rock"
+							alt="rock"
+							src="img/rock.jpg"
+						/>
+					</div>
+				</div>
+				<div style="height: 50%" class="card text-bg-success mb-2">
+					<div class="card-header fw-bold">Player Deck</div>
+					<div class="card-body mx-auto" id="player_deck">
+						<img
+							class="img-sizing thumbnail p-2 rounded-circle paper"
+							alt="paper"
+							src="img/paper.jpg"
+						/>
+						<img
+							class="img-sizing thumbnail p-2 rounded-circle scissor"
+							alt="scissor"
+							src="img/scissor.jpg"
+						/>
+						<img
+							class="img-sizing thumbnail p-2 rounded-circle rock"
+							alt="rock"
+							src="img/rock.jpg"
+						/>
+					</div>
+				</div>
+				<!-- <div class="enemy">
+					<li>
+						<img src="img/paper.jpg" alt="paper" class="paper" />
+						<img src="img/scissor.jpg" alt="scissor" class="scissor" />
+						<img src="img/rock.jpg" alt="rock" class="rock" />
+					</li>
+				</div>
+				<div class="player">
+					<li>
+						<img src="img/paper.jpg" alt="paper" id="paper" />
+						<img src="img/scissor.jpg" alt="scissor" id="scissor" />
+						<img src="img/rock.jpg" alt="rock" id="rock" />
+					</li>
+				</div> -->
+			</section>
+			<aside class="col-md-4 my-2">
+				<div style="height: 101.5%" class="card text-bg-light mb-2">
+					<div class="card-header fw-bold">Game Details</div>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item mb-1 mx-1 text-dark bg-light">
+							<div class="row">
+								<div class="col">
+									<h6 class="text-muted">Time Playing</h6>
+									<h6 class="text-muted">Round(s)</h6>
+									<h6 class="text-muted">Win Rates</h6>
+								</div>
+								<div class="col">
+									<h6 class="text-warning" id="play_times">-</h6>
+									<h6 class="text-warning" id="play_rounds">0 time(s)</h6>
+									<h6 class="text-warning" id="play_rates">0%</h6>
+								</div>
+							</div>
+						</li>
+						<li class="list-group-item mb-1 mx-1 text-light bg-danger">
+							<div class="row">
+								<div class="col">
+									<h6>Computer Scores</h6>
+								</div>
+								<div class="col">
+									<h6>III</h6>
+								</div>
+							</div>
+						</li>
+						<li class="list-group-item mb-1 mx-1 text-light bg-success">
+							<div class="row">
+								<div class="col">
+									<h6>Player Scores</h6>
+								</div>
+								<div class="col">
+									<h6>IIIII</h6>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+				<!-- <div class="row">
+					<div class="col-md-12 result"></div>
+					<div class="col-md-6 playerScores">
+						<h2>0 : PEMAIN</h2>
+					</div>
+					<div class="col-md-6 computerScores">
+						<h2>KOMPUTER : 0</h2>
+					</div>
+				</div> -->
+			</aside>
+		</div>
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+			crossorigin="anonymous"
+		></script>
+		<script src="script.js"></script>
+	</body>
+</html>
