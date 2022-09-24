@@ -12,27 +12,25 @@ const descriptions = {
     menu:{
       restart:'Mulai Lagi',
       difficulty:{
-        header:'Kesulitan',
+        name:'Kesulitan',
         list:['Musuh dengan Precognition', 'Musuh dengan Hoki Super', 'Musuh Normal', 'Musuh dengan Hoki Ampas']
       },
       language:{
-        header:'Bahasa',
+        name:'Bahasa',
         list:['Indonesia', 'English'],
       },
     },
-    computer:{
-      header:'Dek Komputer',
-      scores:'Skor Komputer'
-    },
-    player:{
-      header:'Dek Pemain',
-      scores:'Skor Pemain'
+    box_title:{
+      computer_deck:'Dek Komputer',
+      player_deck:'Dek Pemain',
+      game_details:'Detail Permainan'
     },
     details:{
-      header:'Detail Permainan',
       time_playing:'Waktu Bermain',
       rounds:'Ronde',
-      win_rates:'Persentase Menang'
+      win_rates:'Persentase Menang',
+      player_scores:'Skor Pemain',
+      computer_scores:'Skor Komputer'
     }
   },
   en_lang:{
@@ -40,27 +38,25 @@ const descriptions = {
     menu:{
       restart:'Reset Game',
       difficulty:{
-        header:'Difficulty',
+        name:'Difficulty',
         list:['Enemy with Precognition', 'Enemy with Super-Luck', 'Normal Enemy', 'Enemy with Trashy-Luck']
       },
       language:{
-        header:'Language',
+        name:'Language',
         list:['Indonesia', 'English'],
       },
     },
-    computer:{
-      header:'Computer Deck',
-      scores:'Computer Scores'
-    },
-    player:{
-      header:'Player Deck',
-      scores:'Player Scores'
+    box_title:{
+      computer_deck:'Computer Deck',
+      player_deck:'Player Deck',
+      game_details:'Game Details'
     },
     details:{
-      header:'Game Details',
-      time_playing:'Playing Time',
-      rounds:'Round(s)',
-      win_rates:'Win Rates'
+      time_playing:'Time Playing',
+      rounds:'Rounds',
+      win_rates:'Win Rates',
+      player_scores:'Player Scores',
+      computer_scores:'Computer Scores'
     }
   }
 }
