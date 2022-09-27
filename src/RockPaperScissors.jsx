@@ -8,6 +8,7 @@ import Scissors from './assets/scissors.jpg';
 
 // Bootstrap
 import Card from 'react-bootstrap/Card';
+import CardGroup from 'react-bootstrap/CardGroup';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -16,9 +17,12 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 function App(props) {
   const id_lang = props.descriptions.id_lang;
   const en_lang = props.descriptions.en_lang;
-  const difficulty_colors = ['danger', 'warning', 'secondary', 'primary'];
+  const difficulty_colors = ['danger', 'warning', 'secondary', 'info'];
   const [data, setData] = useState(id_lang);
   const [difficulty, setDifficulty] = useState(difficulty_colors[2]);
+  const [activeWeapon, setActiveWeapon] = useState(null);
+  const [focusWeapon, setFocusWeapon] = useState(null);
+  const [spreadCards, setSpreadCards] = useState(false);
 
   const DifficultyList = data.menu.difficulty.list.map((element, index) =>
     <NavDropdown.Item 
@@ -36,6 +40,40 @@ function App(props) {
     >
       {element}
     </NavDropdown.Item>
+  );
+  const WeaponList = [{Rock}, {Paper}, {Scissors}, {Rock}, {Paper}].map((element, index) =>
+    <Card
+      bg="light"
+      border="light"
+      className={`card-sizing rounded position-absolute shadow-sm p-1`}
+      style={{ 
+        transition:"all 200ms linear",
+        marginLeft:spreadCards === true ? index*8+'vw':index*4+'vw',
+        opacity:focusWeapon === null ? '100%':focusWeapon + 1 === index ? '20%':'100%',
+        bottom:activeWeapon === index ? '5vw':'2vw',
+        border:activeWeapon === index ? '':''
+      }}
+      key={index} 
+      onClick={() => activeWeapon === index ? setActiveWeapon(null):setActiveWeapon(index)}
+      onMouseEnter={() => setFocusWeapon(index)}
+      onMouseLeave={() => setFocusWeapon(null)}
+    >
+      <Card.Header className="text-uppercase fw-bold text-center text-secondary p-1">
+        {(Object.keys(element))}
+      </Card.Header>
+      <Card.Img 
+        className="img-sizing"
+        variant="top" 
+        src={Object.values(element)} 
+      />
+      <Card.Body>
+        <Card.Text className="fw-bold">
+          {Object.keys(element)[0] === "Rock" ? "Paper > Rock > Scissors":''}
+          {Object.keys(element)[0] === "Paper" ? "Scissors > Paper > Rock":''}
+          {Object.keys(element)[0] === "Scissors" ? "Rock > Scissors > Paper":''}
+        </Card.Text>
+      </Card.Body>
+    </Card>
   );
   
   return (
@@ -68,55 +106,39 @@ function App(props) {
         </Navbar>
         <div className="row">
           <section className="col-md-8 my-2">
-            <Card style={{height: '50%'}} className={`bg-${difficulty} mb-2`}>
+            <Card style={{height: '50%', minHeight:'30vw'}} className={`bg-${difficulty} mb-2`}>
               <Card.Header>
-                <h6 className="text-light">{data.box_title.computer_deck}</h6>
+                <h5 className="text-light fw-bold">{data.box_title.computer_deck}</h5>
               </Card.Header>
-              <Card.Body className="mx-auto" id="computer_deck">
-                <img
-                  className="img-sizing thumbnail p-2 rounded-circle rock"
-                  alt="rock"
-                  src={Rock}
-                />
-                <img
-                  className="img-sizing thumbnail p-2 rounded-circle paper"
-                  alt="paper"
-                  src={Paper}
-                />
-                <img
-                  className="img-sizing thumbnail p-2 rounded-circle scissor"
-                  alt="scissor"
-                  src={Scissors}
-                />
+              <Card.Body id="computer_deck">
+                <CardGroup
+                  style={{transition:"all 250ms linear"}}
+                  onMouseEnter={()=>{setSpreadCards(true)}}
+                  onMouseLeave={()=>{setSpreadCards(false)}}
+                >
+                  {WeaponList}
+                </CardGroup>
               </Card.Body>
             </Card>
-            <Card style={{height: '50%'}} className="bg-success mb-2">
+            <Card style={{height: '50%', minHeight:'30vw'}} className="bg-success mb-2">
               <Card.Header>
-                <h6 className="text-light">{data.box_title.player_deck}</h6>
+                <h5 className="text-light fw-bold">{data.box_title.player_deck}</h5>
               </Card.Header>
-              <Card.Body className="mx-auto" id="player_deck">
-                <img
-                  className="img-sizing thumbnail p-2 rounded-circle rock"
-                  alt="rock"
-                  src={Rock}
-                />
-                <img
-                  className="img-sizing thumbnail p-2 rounded-circle paper"
-                  alt="paper"
-                  src={Paper}
-                />
-                <img
-                  className="img-sizing thumbnail p-2 rounded-circle scissor"
-                  alt="scissor"
-                  src={Scissors}
-                />
+              <Card.Body id="player_deck">
+                <CardGroup
+                  style={{transition:"all 250ms linear"}}
+                  onMouseEnter={()=>{setSpreadCards(true)}}
+                  onMouseLeave={()=>{setSpreadCards(false)}}
+                >
+                  {WeaponList}
+                </CardGroup>
               </Card.Body>
             </Card>
           </section>
           <aside className="col-md-4 my-2">
             <Card style={{height: '101.5%'}} className="bg-light mb-2">
               <Card.Header>
-                <h6>{data.box_title.game_details}</h6>
+                <h5 className="fw-bold">{data.box_title.game_details}</h5>
               </Card.Header>
               <ul className="list-group list-group-flush">
                 <li className="list-group-item mb-1 mx-1 text-dark bg-light">

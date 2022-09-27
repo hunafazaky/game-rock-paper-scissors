@@ -1,8 +1,8 @@
 .App {
 	text-align: center;
 	background-color: #282c34;
-  min-height: 100vh;
-  text-align: left;
+	min-height: 100vh;
+	text-align: left;
 }
 
 .App-logo {
@@ -18,18 +18,24 @@
 
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
-  .img-sizing {
-    width: 24vw;
-    height: 24vw;
-  }
+	.card-sizing {
+		width: 30vw;
+	}
+	.img-sizing {
+		width: 30vw;
+		height: 24vw;
+	}
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 600px) {
-  .img-sizing {
-    width: 12vw;
-    height: 12vw;
-  }
+	.card-sizing {
+		width: 15vw;
+	}
+	.img-sizing {
+		width: 15vw;
+		height: 12vw;
+	}
 }
 
 /* Medium devices (landscape tablets, 768px and up) */
