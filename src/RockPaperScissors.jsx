@@ -2,9 +2,6 @@ import React, {useState} from "react";
 import './App.css';
 
 // Assets
-import Rock from './assets/rock.jpg';
-import Paper from './assets/paper.jpg';
-import Scissors from './assets/scissors.jpg';
 
 // Bootstrap
 import Card from 'react-bootstrap/Card';
@@ -13,17 +10,22 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import cardCover from './assets/card-cover.jpg';
 
 function App(props) {
   const id_lang = props.descriptions.id_lang;
   const en_lang = props.descriptions.en_lang;
+  const playerWeapons = props.playerWeapons
+  const computerWeapons = props.computerWeapons;
   const difficulty_colors = ['danger', 'warning', 'secondary', 'info'];
+  // State
   const [data, setData] = useState(id_lang);
   const [difficulty, setDifficulty] = useState(difficulty_colors[2]);
   const [activeWeapon, setActiveWeapon] = useState(null);
   const [focusWeapon, setFocusWeapon] = useState(null);
   const [spreadCards, setSpreadCards] = useState(false);
 
+  // Loop
   const DifficultyList = data.menu.difficulty.list.map((element, index) =>
     <NavDropdown.Item 
       className={'text-'+difficulty_colors[index]} 
@@ -41,16 +43,39 @@ function App(props) {
       {element}
     </NavDropdown.Item>
   );
-  const WeaponList = [{Rock}, {Paper}, {Scissors}, {Rock}, {Paper}].map((element, index) =>
+  const ComputerWeapons = computerWeapons.map((element, index) =>
     <Card
-      bg="light"
-      border="light"
+      bg="dark"
       className={`card-sizing rounded position-absolute shadow-sm p-1`}
       style={{ 
+        backgroundImage:cardCover,
+        width:'12vw',
+        height:'15vw',
+        marginLeft:index*4+'vw',
+        bottom:'1vw'
+      }}
+      key={index} 
+    >
+      <Card.Img
+        width="100%"
+        height="100%"
+        style={{objectFit:'cover'}}
+        src={cardCover}
+      />
+    </Card>
+  );
+
+  const PlayerWeapons = playerWeapons.map((element, index) =>
+    <Card
+      bg="light"
+      className={`card-sizing rounded position-absolute shadow-sm p-1`}
+      style={{ 
+        width:'12vw',
+        height:'15vw',
         transition:"all 200ms linear",
         marginLeft:spreadCards === true ? index*8+'vw':index*4+'vw',
         opacity:focusWeapon === null ? '100%':focusWeapon + 1 === index ? '20%':'100%',
-        bottom:activeWeapon === index ? '5vw':'2vw',
+        bottom:activeWeapon === index ? '4vw':'1vw',
         border:activeWeapon === index ? '':''
       }}
       key={index} 
@@ -58,28 +83,23 @@ function App(props) {
       onMouseEnter={() => setFocusWeapon(index)}
       onMouseLeave={() => setFocusWeapon(null)}
     >
-      <Card.Header className="text-uppercase fw-bold text-center text-secondary p-1">
-        {(Object.keys(element))}
+      <Card.Header className={`text-uppercase fw-bold text-center text-${element.color} p-1`}>
+        {element.name}
       </Card.Header>
       <Card.Img 
-        className="img-sizing"
+        width="100%"
+        height="100%"
+        style={{objectFit:'cover'}}
         variant="top" 
-        src={Object.values(element)} 
+        src={element.src} 
       />
-      <Card.Body>
-        <Card.Text className="fw-bold">
-          {Object.keys(element)[0] === "Rock" ? "Paper > Rock > Scissors":''}
-          {Object.keys(element)[0] === "Paper" ? "Scissors > Paper > Rock":''}
-          {Object.keys(element)[0] === "Scissors" ? "Rock > Scissors > Paper":''}
-        </Card.Text>
-      </Card.Body>
     </Card>
   );
   
   return (
     <div className="App">
       <div className="container">
-        <Navbar variant="dark" expand="lg">
+        {/* <Navbar variant="dark" expand="lg">
           <Container>
             <Navbar.Brand href="#home">{data.brand}</Navbar.Brand>
             <Navbar.Toggle aria-controls="navbar-dark" />
@@ -103,40 +123,38 @@ function App(props) {
               </Nav>
             </Navbar.Collapse>
           </Container>
-        </Navbar>
+        </Navbar> */}
         <div className="row">
           <section className="col-md-8 my-2">
-            <Card style={{height: '50%', minHeight:'30vw'}} className={`bg-${difficulty} mb-2`}>
+            <Card style={{height: '50%', minHeight:'20vw'}} className={`bg-${difficulty} mb-2`}>
               <Card.Header>
-                <h5 className="text-light fw-bold">{data.box_title.computer_deck}</h5>
+                <h5 className="text-light text-end fw-bold">{data.box_title.computer_deck}</h5>
               </Card.Header>
               <Card.Body id="computer_deck">
-                <CardGroup
-                  style={{transition:"all 250ms linear"}}
-                  onMouseEnter={()=>{setSpreadCards(true)}}
-                  onMouseLeave={()=>{setSpreadCards(false)}}
-                >
-                  {WeaponList}
+                <CardGroup>
+                  {ComputerWeapons}
                 </CardGroup>
               </Card.Body>
             </Card>
-            <Card style={{height: '50%', minHeight:'30vw'}} className="bg-success mb-2">
+            <Card style={{height: '50%', minHeight:'20vw'}} className="bg-success mb-2">
               <Card.Header>
-                <h5 className="text-light fw-bold">{data.box_title.player_deck}</h5>
+                <h5 className="text-light text-end fw-bold">{data.box_title.player_deck}</h5>
               </Card.Header>
               <Card.Body id="player_deck">
-                <CardGroup
-                  style={{transition:"all 250ms linear"}}
+                <div
+                  style={{transition:"all 400ms linear", height:'100%'}}
                   onMouseEnter={()=>{setSpreadCards(true)}}
                   onMouseLeave={()=>{setSpreadCards(false)}}
                 >
-                  {WeaponList}
-                </CardGroup>
+                  <CardGroup>
+                    {PlayerWeapons}
+                  </CardGroup>
+                </div>
               </Card.Body>
             </Card>
           </section>
-          <aside className="col-md-4 my-2">
-            <Card style={{height: '101.5%'}} className="bg-light mb-2">
+          <section className="col-md-4 my-2">
+            <Card style={{height: '101%'}} className="bg-light mb-2">
               <Card.Header>
                 <h5 className="fw-bold">{data.box_title.game_details}</h5>
               </Card.Header>
@@ -177,7 +195,10 @@ function App(props) {
                 </li>
               </ul>
             </Card>
-          </aside>
+          </section>
+          <footer>
+          <a href="https://www.freepik.com/free-vector/abstract-wavy-shape-pattern-blank-background-set_8998552.htm">Image by starline</a> on Freepik
+          </footer>
         </div>
       </div>
     </div>

@@ -1,4 +1,9 @@
+html {
+	background-color: #282c34;
+}
+
 .App {
+	margin-bottom: 10vh;
 	text-align: center;
 	background-color: #282c34;
 	min-height: 100vh;
@@ -10,6 +15,10 @@
 	pointer-events: none;
 }
 
+.card-sizing {
+	width: 30vw;
+}
+
 @media (prefers-reduced-motion: no-preference) {
 	.App-logo {
 		animation: App-logo-spin infinite 20s linear;
@@ -17,7 +26,7 @@
 }
 
 /* Extra small devices (phones, 600px and down) */
-@media only screen and (max-width: 600px) {
+/* @media only screen and (max-width: 600px) {
 	.card-sizing {
 		width: 30vw;
 	}
@@ -25,10 +34,10 @@
 		width: 30vw;
 		height: 24vw;
 	}
-}
+} */
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
-@media only screen and (min-width: 600px) {
+/* @media only screen and (min-width: 600px) {
 	.card-sizing {
 		width: 15vw;
 	}
@@ -36,7 +45,7 @@
 		width: 15vw;
 		height: 12vw;
 	}
-}
+} */
 
 /* Medium devices (landscape tablets, 768px and up) */
 /* @media only screen and (min-width: 768px) {...} */

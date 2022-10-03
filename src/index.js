@@ -5,7 +5,31 @@ import RockPaperScissors from './RockPaperScissors';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+// Assets
+import Rock from './assets/rock.jpg';
+import Paper from './assets/paper.jpg';
+import Scissors from './assets/scissors.jpg';
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
+// Function
+const makeCards = (weapons, multiply, cards = []) => {
+  if (multiply !== 0) {
+    cards.push(...weapons);
+    makeCards(weapons, multiply - 1, cards);
+  } return cards;
+}
+
+const distributeCards = (allCards, numToDistribute, cards = {player:[], computer:[]}) => {
+  if (numToDistribute !== 0) {
+    let randomIndex = Math.floor(Math.random()*allCards.length);
+    numToDistribute % 2 === 0 ? cards.player.push(allCards[randomIndex]):cards.computer.push(allCards[randomIndex]);  
+    allCards.splice(randomIndex, 1);
+    distributeCards(allCards, numToDistribute - 1, cards);
+  } return cards;
+}
+
+// Data
 const descriptions = {
   id_lang:{
     brand:'Kertas Gunting Batu',
@@ -60,9 +84,36 @@ const descriptions = {
     }
   }
 }
+const weapons = [
+  {
+    name: 'Rock',
+    color: 'warning',
+    src: Rock,
+    power : 'Kill Scissors, Killed by Paper'
+  },
+  {
+    name: 'Paper',
+    color: 'success',
+    src: Paper,
+    power : 'Kill Rock, Killed by Scissors'
+  },
+  {
+    name: 'Scissors',
+    color: 'danger',
+    src: Scissors,
+    power : 'Kill Paper, Killed by Rock'
+  },
+]
+const allCards = makeCards(weapons, 4);
+const playCards = distributeCards(allCards, 10);
+
 root.render(
   <React.StrictMode>
-    <RockPaperScissors descriptions={descriptions}/>
+    <RockPaperScissors 
+      descriptions={descriptions}
+      playerWeapons={playCards.player}
+      computerWeapons={playCards.computer}
+    />
   </React.StrictMode>
 );
 
